@@ -3,24 +3,22 @@
 # https://ubuntu.com/server/docs/network-dhcp
 # Author: Jose Maria Madronal GPL v2.0+
 # ------------------------------------------
-
+#
+#
+# declare STRING variable
 STRING="Scripts examples"
-f_dchpd_conf="https://raw.githubusercontent.com/lluisfsegui/DHCP04/main/kea-dhcp4.conf"
+f_dchpd_conf="https://raw.githubusercontent.com/lluisfsegui/DHCP04/refs/heads/main/kea-dhcp4.conf"
+#print variable on a screen
 echo $STRING
 
-# Install DHCP (Kea)
-apt-get update
-apt-get install -y kea-dhcp4-server wget
+#Install DHCP
+apt-get install kea
+rm  /etc/kea/kea-dhcp4.conf
+# download githup configuration file
+wget $f_dchpd_conf
 
-# Remove default config
-rm -f /etc/kea/kea-dhcp4.conf
+# copy configuration file to etc directory
+cp kea-dhcp4.conf /etc/kea
 
-# Download GitHub configuration file
-wget -O kea-dhcp4.conf $f_dchpd_conf
-
-# Copy configuration file to etc directory
-cp kea-dhcp4.conf /etc/kea/
-
-# Restart Kea service
 systemctl restart kea-dhcp4-server
 systemctl status kea-dhcp4-server
