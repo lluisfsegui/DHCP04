@@ -12,7 +12,8 @@ f_dchpd_conf="https://raw.githubusercontent.com/lluisfsegui/DHCP04/refs/heads/ma
 echo $STRING
 
 #Install DHCP
-apt-get install kea
+apt update
+apt-get install -y kea-dhcp4-server kea-common
 rm  /etc/kea/kea-dhcp4.conf
 # download githup configuration file
 wget $f_dchpd_conf
